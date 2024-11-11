@@ -6,8 +6,7 @@ RMFLAGS = -rf
 
 
 DIR_FUNC := $(CURDIR)
-DIR_TEST = $(HOME)/42_cursus/libft/test
-
+DIR_TEST = $(HOME)/1337/CommonCore/libft-test
 TEST_SRCS = $(DIR_TEST)/srcs
 TEST_UTILS = $(DIR_TEST)/utils
 
