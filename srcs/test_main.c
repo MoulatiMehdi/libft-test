@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:06:46 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 20:23:05 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:34:50 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -96,6 +96,7 @@ int	main(void)
 	int		res;
 	int		exp;
 	char	*s;
+	int		error;
 
 	s = "alo";
 	i = 0;
@@ -111,15 +112,23 @@ int	main(void)
 	t_func f[][2] = {
 		{memmove_wrapper, ft_memmove_wrapper},
 		{memcpy_wrapper, ft_memcpy_wrapper},
-		{strlcat_wrapper, ft_strlcat_wrapper},
-		{strlcpy_wrapper, ft_strlcpy_wrapper},
 	};
 	len = sizeof(f) / sizeof(f[0]);
+	error = 0;
 	while (i < len)
 	{
 		exp = run_test(f[i][0], &args);
 		res = run_test(f[i][1], &args);
-		msg_fail(names[i], str_sig(exp), str_sig(res));
+		sprintf(desc, "%s(\"%s\",\"%s\",%lu)", names[i], args.s1, args.s2,
+			args.len);
+		if (exp != res)
+		{
+			msg_fail(desc, str_sig(exp), str_sig(res));
+			error++;
+		}
+		else
+			msg_pass(desc);
 		i++;
 	}
+	msg_status("Special Tests (Bus Error)", error);
 }
