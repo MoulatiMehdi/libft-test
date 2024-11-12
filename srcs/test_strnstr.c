@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 16:10:29 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:35:57 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(void)
 					lens[k]);
 				if (exp_status != res_status)
 				{
-					msg_fail(desc, str_sig(exp_status), str_sig(exp_status));
+					msg_fail(desc, str_sig(exp_status), str_sig(res_status));
 					error++;
 					break ;
 				}
