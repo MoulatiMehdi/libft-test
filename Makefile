@@ -35,7 +35,7 @@ $(CC) $(CFLAGS) $(TEST_SRCS)/test_$(1).c $(SRCS) $(UTILS) -o $(1)_test $(addpref
 endef
 
 $(foreach func, $(FUNCTIONS), \
-$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; $(RM) $(RMFLAGS) ./$(func)_test* ;))
+$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; rm $(RMFLAGS) ./$(func)_test* ;))
 
 
 
