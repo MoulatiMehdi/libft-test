@@ -6,7 +6,7 @@ RMFLAGS = -rf
 
 
 DIR_FUNC := $(CURDIR)
-DIR_TEST = $(HOME)/1337/CommonCore/libft-test
+DIR_TEST = $(HOME)/libft-test
 TEST_SRCS = $(DIR_TEST)/srcs
 TEST_UTILS = $(DIR_TEST)/utils
 
@@ -21,6 +21,7 @@ INCLUDES = $(DIR_TEST)/includes $(DIR_FUNC)/
 FUNCTIONS = $(patsubst $(TEST_SRCS)/test_%.c,%,$(TEST_FILES))
 
 all : $(TEST_BINS) 
+	@echo $(TEST_BINS)
 
 %.out : %.c
 	$(CC) $(CFLAGS) $< $(SRCS) $(UTILS) -o $@ $(addprefix -I,$(INCLUDES));
@@ -34,7 +35,7 @@ $(CC) $(CFLAGS) $(TEST_SRCS)/test_$(1).c $(SRCS) $(UTILS) -o $(1)_test $(addpref
 endef
 
 $(foreach func, $(FUNCTIONS), \
-$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; rm -rf ./$(func)_test* ;))
+$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; @rm -rf ./$(func)_test* ;))
 
 
 

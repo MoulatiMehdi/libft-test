@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 12:03:29 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/09 23:18:44 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:36:42 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_all(char *str)
 			printf("%c", str[i]);
 		else
 		{
-			printf("\\x%02x",str[i]);
+			printf("\\x%02x", str[i]);
 		}
 		i++;
 	}
@@ -64,4 +64,5 @@ void	msg_status(char *func_name, int errors)
 	printf("");
 	print_all(func_name);
 	printf(" \n\n" REST);
+	printf("\x1b[1m;35m----------------------------------------------------------\n");
 }
