@@ -6,11 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:04:06 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/10 09:53:41 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:17:36 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "test.h"
 
+char	name[100];
 void	report_test_result(int status)
 {
 	printf("%6s" REST, str_sig(status));
@@ -18,32 +19,11 @@ void	report_test_result(int status)
 
 char	*str_sig(int status)
 {
-	char	*p;
-
-	switch (status)
-	{
-	case SIGSEGV:
-		p = "[SIGSEG]";
-		break ;
-	case SIGABRT:
-		p = "[SIGABR]";
-		break ;
-	case SIGBUS:
-		p = "[SIGBUS]";
-		break ;
-	case SIGALRM:
-		p = "[SIGALR]";
-		break ;
-	case 0:
-		p = "[NORMAL]";
-		break ;
-	case -1:
-		p = "[FAILED]";
-		break ;
-	default:
-		p = "[UKNOWN]";
-	}
-	return (p);
+	if (status == 0)
+		sprintf(name, "[%s]", "NORMAL");
+	else
+		sprintf(name, "[SIG%s]", strdup(sys_signame[status]));
+	return (strdup(name));
 }
 
 int	run_test(t_func test_func, void *args)
