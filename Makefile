@@ -1,7 +1,7 @@
 # Variables
 CC = @gcc
 CFLAGS = -Wall -Wextra  -g -O0 
-RM = rm
+RM = @rm
 RMFLAGS = -rf
 
 
