@@ -1,7 +1,7 @@
 # Variables
 CC = @gcc
 CFLAGS = -Wall -Wextra  -g -O0 
-RM = @rm
+RM = rm
 RMFLAGS = -rf
 
 
@@ -26,8 +26,8 @@ all : $(TEST_BINS)
 %.out : %.c
 	$(CC) $(CFLAGS) $< $(SRCS) $(UTILS) -o $@ $(addprefix -I,$(INCLUDES));
 	@$@ ;
-	$(RM) $(RMFLAGS) $(TEST_BINS) 
-	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS))
+	$(RM) $(RMFLAGS) $(TEST_BINS) ;
+	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS));
 
 # Pattern rule for generating executable from the given function name
 define compile_test
@@ -35,13 +35,13 @@ $(CC) $(CFLAGS) $(TEST_SRCS)/test_$(1).c $(SRCS) $(UTILS) -o $(1)_test $(addpref
 endef
 
 $(foreach func, $(FUNCTIONS), \
-$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; @rm -rf ./$(func)_test* ;))
+$(eval $(func): ; $(call compile_test,$(func)) ; ./$(func)_test ; $(RM) $(RMFLAGS) ./$(func)_test* ;))
 
 
 
 # Rule to clean generated binaries
 clean:
-	$(RM) $(RMFLAGS) $(TEST_BINS) 
-	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS))
+	$(RM) $(RMFLAGS) $(TEST_BINS) ;
+	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS));
 
 .PHONY: clean re all
