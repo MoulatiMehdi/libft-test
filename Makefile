@@ -21,7 +21,6 @@ INCLUDES = $(DIR_TEST)/includes $(DIR_FUNC)/
 FUNCTIONS = $(patsubst $(TEST_SRCS)/test_%.c,%,$(TEST_FILES))
 
 all : $(TEST_BINS) 
-	@echo $(TEST_BINS)
 
 %.out : %.c
 	$(CC) $(CFLAGS) $< $(SRCS) $(UTILS) -o $@ $(addprefix -I,$(INCLUDES));
