@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_strjoin.c                                     :+:      :+:    :+:   */
+/*   test_substr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:09:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 16:20:17 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:04:59 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,31 @@
 
 typedef struct s_args
 {
-	char	*s1;
-	char	*s2;
-	char	*expected;
-}			t_args;
+	char			*s1;
+	unsigned int	start;
+	size_t			end;
+	char			*expected;
+}					t_args;
 
-char		buffer[BUFFER_SIZE + 1];
+char				buffer[BUFFER_SIZE + 1];
 
 void	fill_desc(char *desc, t_args *args)
 {
-	sprintf(desc, "ft_strjoin(");
+	int	len;
+
+	sprintf(desc, "ft_substr(");
+	len = strlen(desc);
 	if (args->s1 == 0)
-		sprintf(desc + strlen(desc), "NULL,");
+	{
+		sprintf(desc + len, "NULL");
+		len += 4;
+	}
 	else
-		sprintf(desc + strlen(desc), "\"%s\",", args->s1);
-	if (args->s2 == 0)
-		sprintf(desc + strlen(desc), "NULL)");
-	else
-		sprintf(desc + strlen(desc), "\"%s\")", args->s2);
+	{
+		sprintf(desc + len, "\"%s\"", args->s1);
+		len += strlen(args->s1) + 2;
+	}
+	sprintf(desc + len, ",%u,%lu)", args->start, args->end);
 }
 
 void	*test_custom(void *args)
@@ -46,7 +53,7 @@ void	*test_custom(void *args)
 	t_args	*p;
 
 	p = (t_args *)args;
-	return (ft_strjoin(p->s1, p->s2));
+	return (ft_substr(p->s1, p->start, p->end));
 }
 
 int	is_same_str(char *str, char *expected)
@@ -55,11 +62,7 @@ int	is_same_str(char *str, char *expected)
 
 	i = 0;
 	if (str == NULL || expected == NULL)
-	{
-		if (str != expected)
-			printf("\t\t\tgot :%p expected :%p\n", str, expected);
 		return (str == expected);
-	}
 	return (strcmp(str, expected) == 0);
 }
 
@@ -76,61 +79,74 @@ int	main(void)
 	error = 0;
 	t_args args[] = {
 		{
-			.s2 = 0,
+			.start = 0,
+			.end = 0,
 			.s1 = 0,
-			.expected = 0,
-		},
-		{
-			.s1 = 0,
-			.s2 = "Hello",
 			.expected = 0,
 		},
 		{
 			.s1 = "Hello",
-			.s2 = 0,
-			.expected = 0,
+			.start = 0,
+			.end = 0,
+			.expected = "",
 		},
 		{
-			.s2 = "",
+			.s1 = "Hello",
+			.start = 4,
+			.end = 1,
+			.expected = "o",
+		},
+		{
+			.start = 1,
+			.end = 5,
 			.s1 = "Hello World",
-			.expected = "Hello World",
+			.expected = "ello ",
 		},
 		{
-			.s2 = "bbbbb",
-			.s1 = "a",
-			.expected = "abbbbb",
+			.start = UINT_MAX,
+			.end = LONG_MAX,
+			.s1 = "Hello World",
+			.expected = "",
 		},
 		{
-			.s1 = "ababab",
-			.s2 = "bobobo",
-			.expected = "abababbobobo",
+			.s1 = "HELLO WORLD",
+			.start = 1,
+			.end = 1,
+			.expected = "E",
 		},
 		{
 			.s1 = "1337",
-			.s2 = " Bengrier",
-			.expected = "1337 Bengrier",
+			.start = 0,
+			.end = 4,
+			.expected = "1337",
+		},
+
+		{
+			.s1 = "Hello",
+			.start = -1,
+			.end = 0,
+			.expected = "",
+		},
+		{
+			.s1 = "Hello",
+			.start = 0,
+			.end = -1,
+			.expected = "Hello",
 		},
 	};
 	len = sizeof(args) / sizeof(args[0]);
 	i = 0;
 	while (i < len)
 	{
-		fill_desc(desc, args + i);
 		exp = run_test(test_custom, &args[i]);
-		printf("\t");
-		report_test_result(exp);
-		printf(GRAY "    ===> %s \n", desc);
+		fill_desc(desc, args + i);
 		if (exp != 0)
-			error++;
-		i++;
-	}
-	printf("\n");
-	if (error == 0)
-	{
-		i = 3;
-		while (i < len)
 		{
-			fill_desc(desc, args + i);
+			msg_fail(desc, str_sig(0), str_sig(exp));
+			error++;
+		}
+		else
+		{
 			expected = args[i].expected;
 			str = test_custom(&args[i]);
 			if (!is_same_str(str, expected))
@@ -140,8 +156,8 @@ int	main(void)
 			}
 			else
 				msg_pass(desc);
-			i++;
 		}
+		i++;
 	}
-	msg_status("ft_strjoin", error);
+	msg_status("ft_substr", error);
 }
