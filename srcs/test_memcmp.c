@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/09 22:43:56 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:20:05 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,14 @@ int	main(void)
 					}
 				}
 			}
+			if (error == 0)
+			{
+				sprintf(desc, "ft_memcmp(\"%s\",\"%s\",x)", args.dst, args.src);
+				msg_pass(desc);
+			}
 			if (error != 0)
 				break ;
 		}
-		if (error == 0)
-			msg_pass(strs[i]);
 		total_erros += error;
 	}
 	msg_status("ft_memcmp", total_erros);

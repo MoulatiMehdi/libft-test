@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/10 10:41:08 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:48:29 by hdaoudi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,12 @@ int	main(void)
 					strcpy(exp_args.dst, strs[i]);
 					strcpy(res_args.dst, strs[i]);
 				}
+				sprintf(desc,"strlcat(\"%s\",\"%s\",%lu)",exp_args.dst,exp_args.src,exp_args.dstsize);
 				exp_status = run_test(strlcat_wrapper, &exp_args);
 				res_status = run_test(ft_strlcat_wrapper, &res_args);
 				if (exp_status != res_status)
 				{
-					msg_fail(desc, str_sig(exp_status), str_sig(exp_status));
+					msg_fail(desc, str_sig(exp_status), str_sig(res_status));
 					error++;
 					break ;
 				}
@@ -156,7 +157,7 @@ int	main(void)
 			}
 		}
 		if (error == 0)
-			msg_pass(strs[i]);
+			msg_pass(desc);
 		total_erros += error;
 	}
 	msg_status("ft_strlcat", total_erros);

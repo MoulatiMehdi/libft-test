@@ -1,65 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_memcpy.c                                      :+:      :+:    :+:   */
+/*   test_strnstr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 20:58:04 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:35:57 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "test.h"
+#include <string.h>
 
-extern char		desc[];
 typedef struct args
 {
-	char		*dst;
+	const char	*dst;
 	const char	*src;
 	size_t		dstsize;
 }				t_args;
 
-void	*memcpy_wrapper(void *args)
+void	*strnstr_wrapper(void *args)
 {
 	t_args	*params;
 
 	params = args;
-	return (memcpy(params->dst, params->src, params->dstsize));
+	return (strnstr(params->dst, params->src, params->dstsize));
 }
 
-void	*ft_memcpy_wrapper(void *args)
+void	*ft_strnstr_wrapper(void *args)
 {
 	t_args	*params;
 
 	params = args;
-	return (ft_memcpy(params->dst, params->src, params->dstsize));
+	return (ft_strnstr(params->dst, params->src, params->dstsize));
 }
+
 int	main(void)
 {
+	int		show;
 	int		strs_len;
 	int		sizes_len;
 	int		exp_status;
 	int		res_status;
 	char	*exp;
 	char	*res;
-	char	arr_exp[100];
-	char	arr_res[100];
 	int		error;
-	size_t	lens[6] = {0, 1, 2, 50,100};
 	int		i;
 	int		j;
 	int		k;
-	t_args	exp_args;
-	t_args	res_args;
-	int		errors;
+	t_args	args;
+	int		total_erros;
+	size_t	lens[10] = {0, 1, 2, 7, 10, 20, 50};
 
-	errors = 0;
+	total_erros = 0;
+	show = 0;
 	void *strs[] = {
 		NULL,
 		"",
-		"Hello"
+		"Hello",
 		"Hello, World!",
 		"12345",
 		"12345\0abc",
@@ -82,48 +82,38 @@ int	main(void)
 			lens[sizes_len - 1] = strs[j] ? strlen(strs[j]) : 0;
 			for (k = 0; k < sizes_len; k++)
 			{
-				exp_args.dstsize = lens[k];
-				exp_args.src = strs[j];
-				res_args.dstsize = lens[k];
-				res_args.src = strs[j];
-				if (!strs[i])
-				{
-					exp_args.dst = 0;
-					res_args.dst = 0;
-				}
-				else
-				{
-					res_args.dst = arr_exp;
-					exp_args.dst = arr_res;
-					strcpy(exp_args.dst, strs[i]);
-					strcpy(res_args.dst, strs[i]);
-				}
-				exp_status = run_test(memcpy_wrapper, &exp_args);
-				res_status = run_test(ft_memcpy_wrapper, &res_args);
-				sprintf(desc, "memcpy(\"%s\",\"%s\",%lu)", res_args.dst,
-					res_args.src, lens[k]);
+				args.src = strs[j];
+				args.dstsize = lens[k];
+				args.dst = strs[i];
+				exp_status = run_test(strnstr_wrapper, &args);
+				res_status = run_test(ft_strnstr_wrapper, &args);
+				sprintf(desc, "ft_strnstr(\"%s\",\"%s\",%lu)", strs[i], strs[j],
+					lens[k]);
 				if (exp_status != res_status)
 				{
 					msg_fail(desc, str_sig(exp_status), str_sig(res_status));
+					error++;
+					break ;
 				}
-				else if (exp_status == 0)
+				if (exp_status == 0)
 				{
-					res = ft_memcpy_wrapper(&res_args);
-					exp = memcpy_wrapper(&exp_args);
-					if (res == exp)
-						continue ;
-					else if (res == 0 ^ exp == 0 || memcmp(res, exp,
-							lens[k]) != 0)
+					res = strnstr_wrapper(&args);
+					exp = strnstr_wrapper(&args);
+					if (res != exp)
 					{
-						msg_fail(desc, exp_args.dst, res_args.dst);
+						msg_fail(desc, exp, res);
 						error++;
+						break ;
 					}
 				}
 			}
 		}
 		if (error == 0)
+		{
+			sprintf(desc, "ft_strnstr(\"%s\",\"%s\",x)", strs[i], strs[j]);
 			msg_pass(desc);
-		errors += error;
+		}
+		total_erros += error;
 	}
-	msg_status("memcpy", errors);
+	msg_status("ft_strnstr", total_erros);
 }

@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/10 10:42:44 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:30:00 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ void	*ft_strlcpy_wrapper(void *args)
 
 int	main(void)
 {
-	int				show;
-	int				strs_len;
-	int				sizes_len;
-	int				exp_status;
-	int				res_status;
-	size_t			exp;
-	size_t			res;
-	char			arr_exp[100];
-	char			arr_res[100];
-	int				error;
-	size_t			lens[6] = {0, 1, 2, 50};
-	int				i;
-	int				j;
-	int				k;
+	int		show;
+	int		strs_len;
+	int		sizes_len;
+	int		exp_status;
+	int		res_status;
+	size_t	exp;
+	size_t	res;
+	char	arr_exp[100];
+	char	arr_res[100];
+	int		error;
+	size_t	lens[6] = {0, 1, 2, 50};
+	int		i;
+	int		j;
+	int		k;
 	t_args	exp_args;
 	t_args	res_args;
-	int				total_erros;
-	char			nb1[30];
-	char			nb2[30];
+	int		total_erros;
+	char	nb1[30];
+	char	nb2[30];
 
 	total_erros = 0;
 	show = 0;
@@ -105,11 +105,13 @@ int	main(void)
 					strcpy(exp_args.dst, strs[i]);
 					strcpy(res_args.dst, strs[i]);
 				}
+				sprintf(desc, "strlcpy(\"%s\",\"%s\",%lu)", exp_args.dst,
+					exp_args.src, exp_args.dstsize);
 				exp_status = run_test(strlcpy_wrapper, &exp_args);
 				res_status = run_test(ft_strlcpy_wrapper, &res_args);
 				if (exp_status != res_status)
 				{
-					msg_fail(desc, str_sig(exp_status), str_sig(exp_status));
+					msg_fail(desc, str_sig(exp_status), str_sig(res_status));
 					error++;
 					break ;
 				}
@@ -144,8 +146,8 @@ int	main(void)
 					}
 					else if (exp_status == 0 && res_args.dst != exp_args.dst)
 					{
-						if ((res_args.dst == 0 || exp_args.dst == 0)|| strcmp(exp_args.dst,
-								res_args.dst))
+						if ((res_args.dst == 0 || exp_args.dst == 0)
+							|| strcmp(exp_args.dst, res_args.dst))
 						{
 							error++;
 							msg_fail(desc, exp_args.dst, res_args.dst);
@@ -156,7 +158,7 @@ int	main(void)
 			}
 		}
 		if (error == 0)
-			msg_pass(strs[i]);
+			msg_pass(desc);
 		total_erros += error;
 	}
 	msg_status("ft_strlcpy", total_erros);
