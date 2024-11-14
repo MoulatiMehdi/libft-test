@@ -95,9 +95,9 @@ int	main(void)
 		if (res != exp)
 		{
 			printf("\t");
-			report_test_result(exp);
+			str_sig(exp);
 			printf("\t");
-			report_test_result(res);
+			str_sig(res);
 			printf("\t");
 			sprintf(desc,"ft_atoi(\"%s\")", strs[i]);
 			printf("%s\n", desc);

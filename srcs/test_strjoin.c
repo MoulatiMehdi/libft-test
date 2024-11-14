@@ -118,7 +118,7 @@ int	main(void)
 		fill_desc(desc, args + i);
 		exp = run_test(test_custom, &args[i]);
 		printf("\t");
-		report_test_result(exp);
+		str_sig(exp);
 		printf(GRAY "    ===> %s \n", desc);
 		if (exp != 0)
 			error++;

@@ -61,7 +61,7 @@ int	main(void)
 	{
 		exp = run_test(test_custom, &args[i]);
 		sprintf(desc,GRAY"\t ft_putendl_fd(\"%s\",%3d)\n"REST, args[i].str, args[i].fd);
-		report_test_result(exp);
+		str_sig(exp);
 		if (exp != 0)
 			error++;
 		printf("%s",desc);

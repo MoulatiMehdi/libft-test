@@ -63,7 +63,7 @@ int	main(void)
 		sprintf(desc, GRAY "\t ft_putendl_fd(\"%s\",%3d)" REST, args[i].str,
 			args[i].fd);
 		exp = run_test(test_custom, &args[i]);
-		report_test_result(exp);
+		str_sig(exp);
 		if (exp != 0)
 			error++;
 		printf("%s\n", desc);

@@ -53,7 +53,7 @@ int	main(void)
 			args[i].fd);
 		exp = run_test(test_custom, &args[i]);
 		printf("\t");
-		report_test_result(exp);
+		str_sig(exp);
 		if (exp != 0)
 			error++;
 		printf("%s\n" REST, desc);

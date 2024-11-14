@@ -57,7 +57,7 @@ int	main(void)
 		exp = run_test(test_custom, &args[i]);
 		sprintf(desc,GRAY"\tft_putnbr_fd(%3d,%3d)\n", args[i].c, args[i].fd);
 		printf("\n");
-		report_test_result(exp);
+		str_sig(exp);
 		printf("%s"REST,desc);
 		if (exp != 0)
 			error++;
