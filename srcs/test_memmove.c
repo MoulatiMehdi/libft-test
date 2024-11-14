@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 22:03:09 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/10 10:14:42 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:46:35 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(void)
 					res_args.src, lens[k]);
 				if (exp_status != res_status)
 				{
-					msg_fail(desc, str_sig(exp_status), str_sig(exp_status));
+					msg_fail(desc, str_sig(exp_status), str_sig(res_status));
 				}
 				else if (exp_status == 0)
 				{
