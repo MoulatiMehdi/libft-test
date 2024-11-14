@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 12:03:29 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 16:06:03 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:24:23 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	print_all(char *str)
 		if (isprint(str[i]))
 			printf("%c", str[i]);
 		else
-		{
-			printf("\\x%02x", str[i]);
-		}
+			printf("\\x%02x", (unsigned char)str[i]);
 		i++;
 	}
 }
@@ -61,8 +59,6 @@ void	msg_status(char *func_name, int errors)
 	printf("\n");
 	printf(errors ? FAIL : PASS);
 	printf(PURPLE " ");
-	printf("");
 	print_all(func_name);
-	printf("\n\x1b[1;35m__________________________________________________________\n" REST);
-	printf(" \n" REST);
+	printf("\n\x1b[1;35m----------------------------------------------------------\n" REST);
 }

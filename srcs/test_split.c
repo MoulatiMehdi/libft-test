@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:09:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/09 20:25:44 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:34:31 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,24 @@ typedef struct s_args
 
 char		buffer[BUFFER_SIZE + 1];
 
-void fill_desc(char *desc ,t_args* args)
+void	fill_desc(char *desc, t_args *args)
 {
 	sprintf(desc, "ft_split(");
-	if(args->str == 0)
-	sprintf(desc + strlen(desc),"NULL,");
+	if (args->str == 0)
+		sprintf(desc + strlen(desc), "NULL,");
 	else
-	sprintf(desc + strlen(desc),"\"%s\",", args->str);
+		sprintf(desc + strlen(desc), "\"%s\",", args->str);
 	if (isprint(args->c))
-		sprintf(desc + strlen(desc),"'%c')",args->c);
+		sprintf(desc + strlen(desc), "'%c')", args->c);
 	else
-		sprintf(desc + strlen(desc),"%d)", args->c);
-
+		sprintf(desc + strlen(desc), "%d)", args->c);
 }
 
 char	**make_strs(int count, ...)
 {
-	char	**strs;
-	va_list	args;
+	char		**strs;
+	va_list		args;
+	const char	*arg;
 
 	if (count == 0)
 	{
@@ -57,7 +57,7 @@ char	**make_strs(int count, ...)
 	va_start(args, count);
 	for (int i = 0; i < count; i++)
 	{
-		const char *arg = va_arg(args, const char *);
+		arg =  va_arg(args, const char *);
 		strs[i] = arg ? strdup(arg) : NULL;
 	}
 	strs[count] = NULL;
@@ -77,7 +77,7 @@ void	free_strs(char **strs)
 	}
 }
 
-void *test_custom(void *args)
+void	*test_custom(void *args)
 {
 	t_args	*p;
 
@@ -92,22 +92,14 @@ int	is_same_strs(char **strs, char **expected)
 	i = 0;
 	if (strs == NULL || expected == NULL)
 	{
-		if (strs != expected)
-			printf("\t\t\tgot :%p expected :%p\n", strs, expected);
 		return (strs == expected);
 	}
 	while (strs[i] != NULL || expected[i] != NULL)
 	{
 		if (strs[i] == NULL || expected[i] == NULL)
-		{
-			printf("i : %d got :%s expected :%s\n", i, strs[i], expected[i]);
-			return (0);
-		}
+			return (strs[i] == expected[i]);
 		if (strcmp(strs[i], expected[i]) != 0)
-		{
-			printf("i : %d got :%s expected :%s\n", i, strs[i], expected[i]);
 			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -118,7 +110,7 @@ char	*strs_to_str(char **strs)
 	int	i;
 
 	memset(buffer, 0, BUFFER_SIZE);
-	printf("%s\n",buffer);
+	printf("%s\n", buffer);
 	if (!strs)
 		return ("0");
 	else
@@ -126,14 +118,14 @@ char	*strs_to_str(char **strs)
 		i = 0;
 		while (strs[i])
 		{
-			strcat(buffer, "\x1b[35m\"");
+			strcat(buffer, "\"");
 			strcat(buffer, strs[i]);
-			strcat(buffer, "\"\x1b[0m -> ");
+			strcat(buffer, "\" -> ");
 			i++;
 		}
 		if (!strs[i])
 		{
-			strcat(buffer, "\x1b[35m\"(NULL)\"\x1b[0m");
+			strcat(buffer, "\"(NULL)\"");
 		}
 		return (buffer);
 	}
@@ -143,7 +135,7 @@ int	main(void)
 {
 	int		i;
 	int		len;
-	int		exp;
+	int		res;
 	int		error;
 	char	desc[BUFFER_SIZE + 1];
 	char	**strs;
@@ -159,7 +151,7 @@ int	main(void)
 		{
 			.c = 1,
 			.str = "",
-			.expected = make_strs(1,0),
+			.expected = make_strs(1, 0),
 		},
 		{
 			.c = 1,
@@ -179,7 +171,7 @@ int	main(void)
 		{
 			.c = 'a',
 			.str = "aaaaaaaaaaaaaaa",
-			.expected = make_strs(1,0),
+			.expected = make_strs(1, 0),
 		},
 		{
 			.c = 'b',
@@ -199,20 +191,13 @@ int	main(void)
 		{
 			.c = '\200',
 			.str = "abbaabba\200abbbbaaaa",
-			.expected = make_strs(2, "abbaabba","abbbbaaaa"),
+			.expected = make_strs(2, "abbaabba", "abbbbaaaa"),
 		},
 	};
 	len = sizeof(args) / sizeof(args[0]);
 	i = 0;
 	while (i < len)
 	{
-			fill_desc(desc,args + i);
-		exp = run_test(test_custom, &args[i]);
-		printf("\t");
-		report_test_result(exp);
-		printf(GRAY "    ===> %s \n", desc);
-		if (exp != 0)
-			error++;
 		i++;
 	}
 	printf("\n");
@@ -221,16 +206,25 @@ int	main(void)
 		i = 0;
 		while (i < len)
 		{
-			fill_desc(desc,args + i);
 			expected = args[i].expected;
-			strs = test_custom(&args[i]);
-			if (!is_same_strs(strs, expected))
+			fill_desc(desc, args + i);
+			res = run_test(test_custom, &args[i]);
+			if (res != 0)
 			{
+				msg_fail(desc, str_sig(0), str_sig(res));
 				error++;
-				msg_fail(desc, strs_to_str(expected), strs_to_str(strs));
 			}
 			else
-				msg_pass(desc);
+			{
+				strs = test_custom(&args[i]);
+				if (!is_same_strs(strs, expected))
+				{
+					error++;
+					msg_fail(desc, strs_to_str(expected), strs_to_str(strs));
+				}
+				else
+					msg_pass(desc);
+			}
 			i++;
 		}
 	}

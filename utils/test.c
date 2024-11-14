@@ -6,25 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:04:06 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/12 20:17:36 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:11:16 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "test.h"
 
-char	name[100];
-void	report_test_result(int status)
-{
-	printf("%6s" REST, str_sig(status));
-}
-
-char	*str_sig(int status)
-{
-	if (status == 0)
-		sprintf(name, "[%s]", "NORMAL");
-	else
-		sprintf(name, "[SIG%s]", strdup(sys_signame[status]));
-	return (strdup(name));
-}
 
 int	run_test(t_func test_func, void *args)
 {
