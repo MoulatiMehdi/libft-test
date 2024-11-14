@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:05:29 by mmoulati          #+#    #+#             */
-/*   Updated: 2024/11/09 22:45:54 by mmoulati         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:52:21 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "test.h"
@@ -73,7 +73,8 @@ int	main(void)
 		{
 			exp = strdup(s1);
 			res = ft_strdup(s1);
-			if (exp == 0 ^ res == 0 || (exp != 0 && strcmp(exp, res)))
+			if (exp == 0 ^ res == 0 || (exp != 0 && (exp[0] != res[0]
+						|| strcmp(exp, res) != 0)))
 			{
 				error++;
 				msg_fail(desc, exp, res);
