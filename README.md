@@ -11,6 +11,7 @@ git clone [your-repo-link] libft-test
 ```
 
 > ⚠️ Make sure to clone it as `libft-test` to ensure the default make commands work properly!
+> ⚠️ Make sure that all the your functions are in your libft.h!
 
 ## Usage 🚀
 
