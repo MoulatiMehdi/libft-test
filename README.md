@@ -7,7 +7,7 @@ A comprehensive testing suite for your Libft project! This tester helps you veri
 1. First, clone the tester repository in your home directory:
 ```bash
 cd ~
-git https://github.com/MoulatiMehdi/libft-test.git libft-test
+git clone https://github.com/MoulatiMehdi/libft-test.git libft-test
 ```
 
 > ⚠️ Make sure to clone it as `libft-test` to ensure the default make commands work properly!
