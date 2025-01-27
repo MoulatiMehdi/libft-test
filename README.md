@@ -7,11 +7,12 @@ A comprehensive testing suite for your Libft project! This tester helps you veri
 1. First, clone the tester repository in your home directory:
 ```bash
 cd ~
-git clone [your-repo-link] libft-test
+git https://github.com/MoulatiMehdi/libft-test.git libft-test
 ```
 
 > ⚠️ Make sure to clone it as `libft-test` to ensure the default make commands work properly!
 > ⚠️ Make sure that all the your functions are in your libft.h!
+> ⚠️ Works for MacOS distros
 
 ## Usage 🚀
 
