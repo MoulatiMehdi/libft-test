@@ -12,53 +12,58 @@
 
 #include "test.h"
 
-void	print_all(char *str)
-{
-	int		i;
-	char	*base;
+char desc[4096];
 
-	base = "0123456789ABCDEF";
-	if (!str)
-	{
-		printf("(null)");
-		return ;
-	}
-	i = 0;
-	while (str[i])
-	{
-		if (isprint(str[i]))
-			printf("%c", str[i]);
-		else
-			printf("\\x%02x", (unsigned char)str[i]);
-		i++;
-	}
+void print_all(char *str)
+{
+    int   i;
+    char *base;
+
+    base = "0123456789ABCDEF";
+    if (!str)
+    {
+        printf("(null)");
+        return;
+    }
+    i = 0;
+    while (str[i])
+    {
+        if (isprint(str[i]))
+            printf("%c", str[i]);
+        else
+            printf("\\x%02x", (unsigned char)str[i]);
+        i++;
+    }
 }
 
-void	msg_pass(char *str)
+void msg_pass(char *str)
 {
-	printf("\t" GREEN CHECK GRAY "  ");
-	print_all(str);
-	printf(REST "\n");
+    printf("\t" GREEN CHECK GRAY "  ");
+    print_all(str);
+    printf(REST "\n");
 }
 
-void	msg_fail(char *desc, char *expected, char *result)
+void msg_fail(char *desc, char *expected, char *result)
 {
-	printf("\t" RED CROSS GRAY " ");
-	print_all(desc);
-	printf("\n");
-	printf("\t\tExpected : ");
-	print_all(expected);
-	printf("\n");
-	printf("\t\tGOT      : ");
-	print_all(result);
-	printf("\n" REST);
+    printf("\t" RED CROSS GRAY " ");
+    print_all(desc);
+    printf("\n");
+    printf("\t\tExpected : ");
+    print_all(expected);
+    printf("\n");
+    printf("\t\tGOT      : ");
+    print_all(result);
+    printf("\n" REST);
 }
 
-void	msg_status(char *func_name, int errors)
+void msg_status(char *func_name, int errors)
 {
-	printf("\n");
-	printf(errors ? FAIL : PASS);
-	printf(PURPLE " ");
-	print_all(func_name);
-	printf("\n\x1b[1;35m----------------------------------------------------------\n" REST);
+    printf("\n");
+    printf(errors ? FAIL : PASS);
+    printf(PURPLE " ");
+    print_all(func_name);
+    printf(
+        "\n\x1b[1;35m----------------------------------------------------------"
+        "\n" REST
+    );
 }

@@ -35,7 +35,6 @@ int	main(void)
 	int	len;
 	int	exp;
 	int	error;
-	char desc[4096];
 	error = 0;
 	t_args args[] = {
 		{

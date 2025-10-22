@@ -12,7 +12,6 @@
 #include "libft.h"
 #include "test.h"
 
-char	desc[4096];
 int	test_atoi(const char *str)
 {
 	char	res[30];
@@ -32,13 +31,13 @@ int	test_atoi(const char *str)
 
 void	*atoi_wrapper(void *str)
 {
-	atoi((char *)str);
+	(void)atoi((char *)str);
 	return (0);
 }
 
 void	*ft_atoi_wrapper(void *str)
 {
-	atoi((char *)str);
+	(void)ft_atoi((char *)str);
 	return (0);
 }
 
@@ -101,7 +100,6 @@ int	main(void)
 			printf("\t");
 			sprintf(desc,"ft_atoi(\"%s\")", strs[i]);
 			printf("%s\n", desc);
-			getchar();
 		}
 		i++;
 	}

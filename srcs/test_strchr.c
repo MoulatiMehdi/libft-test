@@ -45,7 +45,6 @@ int	main(void)
 	int		i;
 	t_args	exp_args;
 	int		errors;
-	char desc[4096];
 
 	errors = 0;
 	void *strs[] = {

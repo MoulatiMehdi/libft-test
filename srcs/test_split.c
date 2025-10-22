@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFFER_SIZE 4096
+
 
 typedef struct s_args
 {
@@ -26,7 +26,7 @@ typedef struct s_args
 	char	**expected;
 }			t_args;
 
-char		buffer[BUFFER_SIZE + 1];
+char		buffer[4096 + 1];
 
 void	fill_desc(char *desc, t_args *args)
 {
@@ -109,7 +109,7 @@ char	*strs_to_str(char **strs)
 {
 	int	i;
 
-	memset(buffer, 0, BUFFER_SIZE);
+	memset(buffer, 0, 4096);
 	printf("%s\n", buffer);
 	if (!strs)
 		return ("0");
@@ -137,7 +137,7 @@ int	main(void)
 	int		len;
 	int		res;
 	int		error;
-	char	desc[BUFFER_SIZE + 1];
+	char	desc[4096 + 1];
 	char	**strs;
 	char	**expected;
 

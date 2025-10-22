@@ -14,8 +14,6 @@
 #include "test.h"
 #include <string.h>
 
-char			desc[4096];
-
 typedef struct s_args
 {
 	char		*dst;
@@ -28,7 +26,7 @@ void	*memcmp_wrapper(void *args)
 	t_args	*params;
 
 	params = args;
-	memcmp(params->dst, params->src, params->dstsize);
+	(void)memcmp(params->dst, params->src, params->dstsize);
 	return (0);
 }
 
@@ -37,7 +35,7 @@ void	*ft_memcmp_wrapper(void *args)
 	t_args	*params;
 
 	params = args;
-	ft_memcmp(params->dst, params->src, params->dstsize);
+	(void)ft_memcmp(params->dst, params->src, params->dstsize);
 	return (0);
 }
 

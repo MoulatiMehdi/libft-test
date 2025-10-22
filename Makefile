@@ -1,11 +1,11 @@
 # Variables
-CC = @gcc
-CFLAGS = -Wall -Wextra  -g -O0 
+CC = @cc
+CFLAGS = -Wall -Wextra -g -lbsd
 RM = @rm
 RMFLAGS = -rf
 
 
-DIR_FUNC := $(CURDIR)
+DIR_FUNC = $(CURDIR)
 DIR_TEST = $(HOME)/libft-test
 TEST_SRCS = $(DIR_TEST)/srcs
 TEST_UTILS = $(DIR_TEST)/utils
@@ -24,7 +24,7 @@ all : $(TEST_BINS)
 
 %.out : %.c
 	$(CC) $(CFLAGS) $< $(SRCS) $(UTILS) -o $@ $(addprefix -I,$(INCLUDES));
-	@$@ ;
+	$@ ;
 	$(RM) $(RMFLAGS) $(TEST_BINS) ;
 	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS));
 
@@ -43,4 +43,5 @@ clean:
 	$(RM) $(RMFLAGS) $(TEST_BINS) ;
 	$(RM) $(RMFLAGS) $(addsuffix .dSYM,$(TEST_BINS));
 
+re : clean all
 .PHONY: clean re all

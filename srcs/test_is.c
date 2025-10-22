@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "test.h"
+#include <strings.h>
 
 typedef int		(*is_funcs)(int);
 typedef struct

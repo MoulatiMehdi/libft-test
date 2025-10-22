@@ -119,7 +119,7 @@ int	main(void)
 	{
 		exp = run_test(f[i][0], &args);
 		res = run_test(f[i][1], &args);
-		sprintf(desc, "%s(\"%s\",\"%s\",%lu)", names[i], args.s1, args.s2,
+		sprintf(desc, "%s(\"%s\",\"%s\",%lu)", names[i], (char*)args.s1, (char *)args.s2,
 			args.len);
 		if (exp != res)
 		{

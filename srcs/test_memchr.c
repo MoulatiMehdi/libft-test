@@ -14,8 +14,6 @@
 #include "test.h"
 #include <stdio.h>
 
-char		desc[4096];
-
 typedef struct s_args
 {
 	char	*str;
@@ -28,7 +26,7 @@ void	*memchr_wrapper(void *args)
 	t_args	*params;
 
 	params = (t_args *)args;
-	memchr(params->str, params->c, params->size);
+	(void)memchr(params->str, params->c, params->size);
 	return (0);
 }
 
@@ -37,7 +35,7 @@ void	*ft_memchr_wrapper(void *args)
 	t_args	*params;
 
 	params = (t_args *)args;
-	ft_memchr(params->str, params->c, params->size);
+	(void)ft_memchr(params->str, params->c, params->size);
 	return (0);
 }
 
